@@ -78,10 +78,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 23
+        "__id__": 21
       },
       {
-        "__id__": 24
+        "__id__": 22
       }
     ],
     "_prefab": null,
@@ -102,8 +102,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 1000,
+      "height": 1366
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -111,8 +111,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 480,
-      "y": 320
+      "x": 500,
+      "y": 683
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -287,10 +287,11 @@
     "verticalDis": 400,
     "horizontalDis": 450,
     "pipeHeight": 1024,
-    "pipeVelocity": -200,
+    "pipeHorizontalVelocity": 0,
     "initialX": 500,
     "finalX": -500,
-    "scoreX": -230
+    "scoreX": -230,
+    "pipeVerticalVelocity": 0
   },
   {
     "__type__": "cc.Node",
@@ -637,16 +638,9 @@
     "_children": [],
     "_tag": -1,
     "_active": true,
-    "_components": [
-      {
-        "__id__": 21
-      },
-      {
-        "__id__": 22
-      }
-    ],
+    "_components": [],
     "_prefab": null,
-    "_id": "39y++R1HJDTJ4mlhvCf/bJ",
+    "_id": "10ZSsVX69OvbuBvRhXXEsV",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
@@ -663,8 +657,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
+      "width": 0,
+      "height": 0
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -672,8 +666,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 479.9999999999999,
-      "y": 319.99999999999994
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -681,31 +675,6 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0
-  },
-  {
-    "__type__": "cc.Canvas",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 20
-    },
-    "_enabled": true,
-    "_designResolution": {
-      "__type__": "cc.Size",
-      "width": 960,
-      "height": 640
-    },
-    "_fitWidth": false,
-    "_fitHeight": true
-  },
-  {
-    "__type__": "75dcccH8v5Fg78Ao1hOZGCp",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 20
-    },
-    "_enabled": true
   },
   {
     "__type__": "cc.Canvas",

@@ -43,6 +43,6 @@ cc.Class({
         console.log('collision enter');
         GlobalGame.gameOn = false;
         this.anim.stop('fly');
-        this.endCanvas.node.active = true;
+        this.endCanvas.active = true;
     },
 });

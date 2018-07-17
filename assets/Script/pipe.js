@@ -29,23 +29,32 @@ cc.Class({
         verticalDis: 0,
         horizontalDis: 0,
         pipeHeight: 0,
-        pipeVelocity: 0,
+        pipeHorizontalVelocity: 0,
         initialX: 0,
         finalX: 0,
         scoreX: 0,
+        pipeVerticalVelocity: 0,
     },
 
     spawnNewPrefab: function(){
         this.total += 1;
-        this.pipetop.push(cc.instantiate(this.pipetopPrefab));
-        this.pipebottom.push(cc.instantiate(this.pipebottomPrefab));
-        this.scoreCounted.push(false);
+        let pipe = {};
+        //this.pipeProperty.push({});
+        pipe['pipetop'] = cc.instantiate(this.pipetopPrefab);
+        pipe['pipebottom'] = cc.instantiate(this.pipebottomPrefab);
+        pipe['scoreCounted'] = false;
+        pipe['num'] = this.total;
+        pipe['verticalMoving'] = this.getVerticalMoving(this.total);
+        pipe['verticalDownMoving'] = true;
+        
 
-        this.node.addChild(this.pipetop[this.pipetop.length - 1]);
-        this.node.addChild(this.pipebottom[this.pipebottom.length - 1]);
+        this.node.addChild(pipe['pipetop']);
+        this.node.addChild(pipe['pipebottom']);
         let pos = this.getNewPipePosition();
-        this.pipetop[this.pipetop.length - 1].setPosition(pos[0]);
-        this.pipebottom[this.pipebottom.length - 1].setPosition(pos[1]);
+        pipe['pipetop'].setPosition(pos[0]);
+        pipe['pipebottom'].setPosition(pos[1]);
+        console.log(pipe['pipetop']);
+        this.pipeProperty.push(pipe);
     },
 
     getNewPipePosition: function(){
@@ -55,10 +64,14 @@ cc.Class({
         return [cc.p(randX, randY), cc.p(randX, randY - this.pipeHeight - this.verticalDis)];
     },
 
+    getVerticalMoving: function(num){
+        if(num % 5 === 0)
+            return true;
+        return false;
+    },
+
     onLoad: function(){
-        this.pipetop = [];
-        this.pipebottom = [];
-        this.scoreCounted = [];
+        this.pipeProperty = [];
         this.total = 0;
         this.spawnNewPrefab();
     },
@@ -68,23 +81,36 @@ cc.Class({
         if(!GlobalGame.gameOn)
             return;
 
-        for(let i = 0; i < this.pipetop.length; ++i){
-            this.pipebottom[i].x += this.pipeVelocity * dt;
-            this.pipetop[i].x += this.pipeVelocity * dt;
+        for(let i = 0; i < this.pipeProperty.length; ++i){
+            this.pipeProperty[i]['pipebottom'].x += this.pipeHorizontalVelocity * dt;
+            this.pipeProperty[i]['pipetop'].x += this.pipeHorizontalVelocity * dt;
+            if(this.pipeProperty[i]['verticalMoving']){
+                console.log(this.pipeProperty[i]);
+                if(this.pipeProperty[i]['verticalDownMoving']){
+                    this.pipeProperty[i]['pipebottom'].y -= this.pipeVerticalVelocity * dt;
+                    this.pipeProperty[i]['pipetop'].y -= this.pipeVerticalVelocity * dt;
+                    if(this.pipeProperty[i]['pipetop'].y <= this.minHeight)
+                        this.pipeProperty[i]['verticalDownMoving'] = false;
+                }
+                else{
+                    this.pipeProperty[i]['pipebottom'].y += this.pipeVerticalVelocity * dt;
+                    this.pipeProperty[i]['pipetop'].y += this.pipeVerticalVelocity * dt;
+                    if(this.pipeProperty[i]['pipetop'].y >= this.maxHeight)
+                        this.pipeProperty[i]['verticalDownMoving'] = true;
+                }
+            }
         }
 
-        if(this.pipetop.length > 0 && this.pipetop[0].x <= this.scoreX && !this.scoreCounted[0]){
+        if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.scoreX && !this.pipeProperty[0]['scoreCounted']){
             this.score.getComponent('score').scorePlus(1);
-            this.scoreCounted[0] = true;
+            this.pipeProperty[0]['scoreCounted'] = true;
         }
-        if(this.pipetop.length > 0 && this.pipetop[0].x <= this.finalX){
-            this.pipetop[0].destroy();
-            this.pipebottom[0].destroy();
-            this.pipetop.shift();
-            this.pipebottom.shift();
-            this.scoreCounted.shift();
+        if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.finalX){
+            this.pipeProperty[0]['pipebottom'].destroy();
+            this.pipeProperty[0]['pipetop'].destroy();
+            this.pipeProperty.shift();
         }
-        if(this.pipetop.length > 0 && Math.abs(this.pipetop[this.pipetop.length - 1].x - this.initialX) >= this.horizontalDis)
+        if(this.pipeProperty.length > 0  && Math.abs(this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x - this.initialX) >= this.horizontalDis)
             this.spawnNewPrefab();
     },
 });
