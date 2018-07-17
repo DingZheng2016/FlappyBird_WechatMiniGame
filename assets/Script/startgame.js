@@ -12,37 +12,19 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        endCanvas:{
+        startGame: {
             default: null,
-            type: cc.Node,
+            type: cc.Label,
         },
-        gravity: 0,
-        jumpSpeed: 0,
     },
 
     onLoad: function(){
-        this.anim = this.getComponent(cc.Animation);
-        this.anim.play('fly');
-        this.currentSpeed = 0;
-
-        cc.director.getCollisionManager().enabled = true;
+        this.registerInput();
     },
 
-    jump: function(){
-        this.currentSpeed = this.jumpSpeed;
-    },
-
-    update: function(dt){
-        if(!GlobalGame.gameOn)
-            return;
-        this.node.y += this.currentSpeed * dt;
-        this.currentSpeed -= this.gravity * dt;
-    },
-
-    onCollisionEnter: function (other, self){
-        console.log('collision enter');
-        GlobalGame.gameOn = false;
-        this.anim.stop('fly');
-        this.endCanvas.node.active = true;
+    registerInput: function(){
+        this.startGame.node.on(cc.Node.EventType.TOUCH_START, function(event){
+            cc.director.loadScene('game');
+        }, this);
     },
 });
