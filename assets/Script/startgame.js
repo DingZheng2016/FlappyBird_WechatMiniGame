@@ -12,14 +12,22 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        startGame: {
-            default: null,
-            type: cc.Label,
+        startGame:{
+            default:null,
+            type:cc.Node,
         },
-        rankList: {
-            default: null,
-            type: cc.Label,  
+        ranking:{
+            default:null,
+            type:cc.Node,
         },
+        battle:{
+            default:null,
+            type:cc.Node,
+        },
+        player:{
+            default:null,
+            type:cc.Node,
+        }
     },
 
     onLoad: function(){
@@ -27,12 +35,17 @@ cc.Class({
     },
 
     registerInput: function(){
-        this.startGame.node.on(cc.Node.EventType.TOUCH_START, function(event){
+        this.startGame.on(cc.Node.EventType.TOUCH_START, function(event){
             cc.director.loadScene('game');
         }, this);
 
-        this.rankList.node.on(cc.Node.EventType.TOUCH_START, function(event){
+        this.ranking.on(cc.Node.EventType.TOUCH_START, function(event){
             cc.director.loadScene('RankingView');
         }, this);
     },
+
+    start: function () {
+        let anim = this.node.getChildByName('player').getComponent(cc.Animation);
+        anim.play('fly');
+    }
 });
