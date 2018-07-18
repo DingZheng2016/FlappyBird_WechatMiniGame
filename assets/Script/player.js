@@ -16,6 +16,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        scoreLabel:{
+            type: cc.Label,
+            default: null,
+        },
         gravity: 0,
         jumpSpeed: 0,
     },
@@ -44,5 +48,6 @@ cc.Class({
         GlobalGame.gameOn = false;
         this.anim.stop('fly');
         this.endCanvas.active = true;
+        this.scoreLabel.getComponent('score').passScore();
     },
 });

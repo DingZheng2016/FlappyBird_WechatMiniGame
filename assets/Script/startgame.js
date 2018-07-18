@@ -16,6 +16,10 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
+        rankList: {
+            default: null,
+            type: cc.Label,  
+        },
     },
 
     onLoad: function(){
@@ -25,6 +29,10 @@ cc.Class({
     registerInput: function(){
         this.startGame.node.on(cc.Node.EventType.TOUCH_START, function(event){
             cc.director.loadScene('game');
+        }, this);
+
+        this.rankList.node.on(cc.Node.EventType.TOUCH_START, function(event){
+            cc.director.loadScene('RankingView');
         }, this);
     },
 });

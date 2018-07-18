@@ -22,10 +22,36 @@ cc.Class({
 
     onLoad: function () {
         this.score = 0;
+        this.gainScore();
     },
 
     scorePlus: function (ds){
         this.score += ds;
         this.scoreDisplay.string = 'Score: ' + this.score;
-    }
+    },
+
+    passScore: function(){
+        if (CC_WECHATGAME) {
+            console.log('Main: pass score');
+            window.wx.postMessage({
+                messageType: 3,
+                MAIN_MENU_NUM: "x1",
+                score: this.score,
+            });
+        } else {
+            cc.log("提交得分: x1 : " + this.score)
+        }
+    },
+
+    gainScore: function(){
+        if(CC_WECHATGAME){
+            console.log('Main: gain score');
+            window.wx.postMessage({
+                messageType: 4,
+                MAIN_MENU_NUM: "x1",
+            });
+        } else {
+            console.log("gain score");
+        }
+    },
 });

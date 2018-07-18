@@ -39,7 +39,6 @@ cc.Class({
     spawnNewPrefab: function(){
         this.total += 1;
         let pipe = {};
-        //this.pipeProperty.push({});
         pipe['pipetop'] = cc.instantiate(this.pipetopPrefab);
         pipe['pipebottom'] = cc.instantiate(this.pipebottomPrefab);
         pipe['scoreCounted'] = false;
@@ -53,7 +52,6 @@ cc.Class({
         let pos = this.getNewPipePosition();
         pipe['pipetop'].setPosition(pos[0]);
         pipe['pipebottom'].setPosition(pos[1]);
-        console.log(pipe['pipetop']);
         this.pipeProperty.push(pipe);
     },
 
@@ -67,7 +65,7 @@ cc.Class({
     getVerticalMoving: function(num){
         if(num % 5 === 0)
             return true;
-        return false;
+        return true;
     },
 
     onLoad: function(){
@@ -85,7 +83,6 @@ cc.Class({
             this.pipeProperty[i]['pipebottom'].x += this.pipeHorizontalVelocity * dt;
             this.pipeProperty[i]['pipetop'].x += this.pipeHorizontalVelocity * dt;
             if(this.pipeProperty[i]['verticalMoving']){
-                console.log(this.pipeProperty[i]);
                 if(this.pipeProperty[i]['verticalDownMoving']){
                     this.pipeProperty[i]['pipebottom'].y -= this.pipeVerticalVelocity * dt;
                     this.pipeProperty[i]['pipetop'].y -= this.pipeVerticalVelocity * dt;
