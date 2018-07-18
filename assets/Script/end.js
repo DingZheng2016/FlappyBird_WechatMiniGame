@@ -12,10 +12,15 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        
+        endLabel: {
+            type: cc.Label,
+            default: null,
+        }
     },
 
     onLoad: function () {
-        this.node.active = false;
+        //console.log('end');
+        //this.node.active = false;
+        this.endLabel.string = '';
     },
 });

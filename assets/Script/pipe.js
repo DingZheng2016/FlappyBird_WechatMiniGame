@@ -55,6 +55,14 @@ cc.Class({
         this.pipeProperty.push(pipe);
     },
 
+    spawnNewBubble: function(posx){
+        
+    },
+
+    spawnNewStar: function(posx){
+
+    },
+
     getNewPipePosition: function(){
         let randX = this.initialX;
         let randY = this.minHeight + (this.maxHeight - this.minHeight) * Math.random();
@@ -65,7 +73,7 @@ cc.Class({
     getVerticalMoving: function(num){
         if(num <= 10)
             return false;
-        if(Math.random() < Math.min(num / 100, 0.8))
+        if(Math.random() < Math.min(num / 100 + 0.1, 0.8))
             return true;
     },
 
@@ -73,6 +81,7 @@ cc.Class({
         this.pipeProperty = [];
         this.total = 0;
         this.spawnNewPrefab();
+        this.spawnBonus = false;
     },
 
     update: function (dt) {
@@ -108,7 +117,18 @@ cc.Class({
             this.pipeProperty[0]['pipetop'].destroy();
             this.pipeProperty.shift();
         }
-        if(this.pipeProperty.length > 0  && Math.abs(this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x - this.initialX) >= this.horizontalDis)
+        if(this.pipeProperty.length > 0 && Math.abs(this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x - this.initialX) >= this.horizontalDis){
             this.spawnNewPrefab();
+            this.spawnBonus = true;
+        }
+        
+        if(this.spawnBonus && this.pipeProperty.length >= 2 && Math.random() < 0.25){
+            let r = Math.random();
+            if(r < 0.5)
+                this.spawnNewBubble((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);
+            else
+                this.spawnNewStar((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);
+            this.spawnBonus = false;
+        }
     },
 });

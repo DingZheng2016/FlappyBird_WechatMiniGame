@@ -49,6 +49,7 @@ cc.Class({
         this.anim.stop('fly');
         this.endCanvas.active = true;
         this.scoreLabel.getComponent('score').passScore();
+        this.scoreLabel.getComponent('score').setEndScore();
         this.schedule(function(){
             cc.director.loadScene('RankingView');
         }, 2);

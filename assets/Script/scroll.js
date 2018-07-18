@@ -14,6 +14,7 @@ cc.Class({
     properties: {
         speed: 0,
         border: 0,
+        origin: 0,
     },
 
     onLoad: function(){
@@ -26,7 +27,7 @@ cc.Class({
         let x = this.node.x;
         x -= this.speed * dt;
         if(x <= this.border)
-            x -= this.border;
+            x = this.origin;
         this.node.x = x;
     },
 

@@ -16,6 +16,11 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
+
+        endLabel:{
+            default: null,
+            type: cc.Label,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -54,4 +59,8 @@ cc.Class({
             console.log("gain score");
         }
     },
+
+    setEndScore: function(){
+        this.endLabel.string = '最终得分：' + this.score;
+    }
 });
