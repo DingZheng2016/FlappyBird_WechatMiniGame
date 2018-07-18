@@ -20,6 +20,7 @@ cc.Class({
 
     onLoad: function(){
         this.setInputControl();
+        GlobalGame.gameOn = true;
     },
 
     setInputControl: function(){

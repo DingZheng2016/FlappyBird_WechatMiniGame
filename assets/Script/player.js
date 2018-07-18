@@ -49,5 +49,8 @@ cc.Class({
         this.anim.stop('fly');
         this.endCanvas.active = true;
         this.scoreLabel.getComponent('score').passScore();
+        this.schedule(function(){
+            cc.director.loadScene('RankingView');
+        }, 2);
     },
 });

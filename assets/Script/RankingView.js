@@ -2,8 +2,18 @@ cc.Class({
     extends: cc.Component,
     //ame: "RankingView",
     properties: {
-        backToMain: cc.Label,
-        rankingScrollView: cc.Sprite,//显示排行榜
+        backToMain: {
+            default: null,
+            type: cc.Label,
+        },
+        restart: {
+            default: null,
+            type: cc.Label,
+        },
+        rankingScrollView: {
+            default: null,
+            type: cc.Sprite,
+        },
     },
     onLoad() {
         this.registerInput();
@@ -87,6 +97,10 @@ cc.Class({
     registerInput: function(){
         this.backToMain.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             cc.director.loadScene('startgame');
+        }, this);
+
+        this.restart.node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            cc.director.loadScene('game');
         }, this);
     }
 });

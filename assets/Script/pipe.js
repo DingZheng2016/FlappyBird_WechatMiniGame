@@ -63,9 +63,10 @@ cc.Class({
     },
 
     getVerticalMoving: function(num){
-        if(num % 5 === 0)
+        if(num <= 10)
+            return false;
+        if(Math.random() < Math.min(num / 100, 0.8))
             return true;
-        return true;
     },
 
     onLoad: function(){
