@@ -2,13 +2,9 @@ cc.Class({
     extends: cc.Component,
     //ame: "RankingView",
     properties: {
-        backToMain: {
+        back: {
             default: null,
-            type: cc.Label,
-        },
-        restart: {
-            default: null,
-            type: cc.Label,
+            type: cc.Node,
         },
         rankingScrollView: {
             default: null,
@@ -94,13 +90,10 @@ cc.Class({
     update() {
         this._updateSubDomainCanvas();
     },
-    registerInput: function(){
-        this.backToMain.node.on(cc.Node.EventType.TOUCH_START, function (event) {
-            cc.director.loadScene('startgame');
-        }, this);
 
-        this.restart.node.on(cc.Node.EventType.TOUCH_START, function (event) {
-            cc.director.loadScene('game');
+    registerInput: function(){
+        this.back.on(cc.Node.EventType.TOUCH_START, function (event) {
+            cc.director.loadScene('startgame');
         }, this);
     }
 });
