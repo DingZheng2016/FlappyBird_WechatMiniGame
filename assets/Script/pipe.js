@@ -24,6 +24,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        plus: {
+            default: null,
+            type: cc.Label,
+        },
         maxHeight: 0,
         minHeight: 0,
         verticalDis: 0,
@@ -82,6 +86,8 @@ cc.Class({
         this.total = 0;
         this.spawnNewPrefab();
         this.spawnBonus = false;
+
+        this.plus.node.color = new cc.color(255, 0, 255, 255);
     },
 
     update: function (dt) {
@@ -109,7 +115,20 @@ cc.Class({
         }
 
         if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.scoreX && !this.pipeProperty[0]['scoreCounted']){
-            this.score.getComponent('score').scorePlus(1);
+            if(this.pipeProperty[0]['verticalMoving']){
+                this.score.getComponent('score').scorePlus(2);
+                this.plus.string = '+2';
+            }
+            else{
+                this.score.getComponent('score').scorePlus(1);
+                this.plus.string = '+1';
+            }
+            let anim = this.plus.getComponent(cc.Animation);
+            let self = this;
+            anim.play('plus');
+            anim.on('stop', function(){
+                self.plus.string = '';
+            }, this);
             this.pipeProperty[0]['scoreCounted'] = true;
         }
         if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.finalX){
