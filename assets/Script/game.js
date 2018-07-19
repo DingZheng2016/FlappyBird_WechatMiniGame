@@ -15,12 +15,17 @@ cc.Class({
         player:{
             default: null,
             type: cc.Node,
-        }
+        },
+        audioBg: {
+            default: null,
+            type: cc.AudioSource,
+        },
     },
 
     onLoad: function(){
         this.setInputControl();
         GlobalGame.gameOn = true;
+        this.audioBg.play();
     },
 
     setInputControl: function(){

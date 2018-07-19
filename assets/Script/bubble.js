@@ -20,6 +20,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        audioBubble:{
+            default: null,
+            type: cc.AudioSource,
+        },
         maxHeight: 0,
         minHeight: 0,
         finalX: 0,
@@ -51,6 +55,7 @@ cc.Class({
     },
 
     dealWithCollision: function() {
+        this.audioBubble.play();
         if(this.bubbleAttached){
             this.bubbleAttached['bubble'].destroy();
             this.bubbleAttached = null;

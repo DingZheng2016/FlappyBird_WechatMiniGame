@@ -28,6 +28,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        audioDie: {
+            default: null,
+            type: cc.AudioSource,
+        },
         gravity: 0,
         jumpSpeed: 0,
     },
@@ -63,6 +67,7 @@ cc.Class({
         */
         console.log('collision tag: ' + other.tag);
         if(other.tag === 2 || (other.tag === 0 && this.isBubbled === false)){
+            this.audioDie.play();
             GlobalGame.gameOn = false;
             this.anim.stop('fly');
             this.endCanvas.active = true;

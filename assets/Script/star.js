@@ -24,6 +24,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        audioScore1: {
+            default: null,
+            type: cc.AudioSource,
+        },
         maxHeight: 0,
         minHeight: 0,
         finalX:0,
@@ -48,6 +52,7 @@ cc.Class({
 
     dealWithCollision: function() {
         if(this.star){
+            this.audioScore1.play();
             this.plus.getComponent('plus').spawnPlus(1, this.star.x, this.star.y);
             this.star.destroy();
             this.star = null;

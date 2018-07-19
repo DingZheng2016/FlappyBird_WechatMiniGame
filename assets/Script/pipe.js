@@ -36,6 +36,14 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        audioScore1:{
+            default: null,
+            type: cc.AudioSource,
+        },
+        audioScore2: {
+            default: null,
+            type: cc.AudioSource,
+        },
         maxHeight: 0,
         minHeight: 0,
         verticalDis: 0,
@@ -116,10 +124,12 @@ cc.Class({
 
         if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.scoreX && !this.pipeProperty[0]['scoreCounted']){
             if(this.pipeProperty[0]['verticalMoving']){
+                this.audioScore2.play();
                 this.score.getComponent('score').scorePlus(2);
                 this.plus.getComponent('plus').spawnPlus(2, this.pipeProperty[0]['pipetop'].x, this.pipeProperty[0]['pipetop'].y - 512 - this.verticalDis / 2)
             }
             else{
+                this.audioScore1.play();
                 this.score.getComponent('score').scorePlus(1);
                 this.plus.getComponent('plus').spawnPlus(1, this.pipeProperty[0]['pipetop'].x, this.pipeProperty[0]['pipetop'].y - 512 - this.verticalDis / 2)
             }
