@@ -65,7 +65,7 @@ cc.Class({
     update: function(dt) {
         if(!GlobalGame.gameOn)
             return ;
-        
+
         if(this.bubble){
             this.bubble['bubble'].x += this.horizontalVelocity * dt;
             this.bubble['bubble'].y += this.bubble['velocity'] * dt;
@@ -104,6 +104,6 @@ cc.Class({
                 this.player.getComponent('player').setBubbled(false);
             }
             this.isGoingToDisappear = false;
-        }, 0.5);
+        }, 0.8);
     },
 });

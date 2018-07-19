@@ -24,6 +24,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        starLayer:{
+            default: null,
+            type: cc.Node,
+        },
         gravity: 0,
         jumpSpeed: 0,
     },
@@ -54,6 +58,7 @@ cc.Class({
             0: pipe,
             1: bubble,
             2: ground,
+            3: star,
         }
         */
         console.log('collision tag: ' + other.tag);
@@ -72,6 +77,8 @@ cc.Class({
         }else if(other.tag === 1){
             this.bubbleLayer.getComponent('bubble').dealWithCollision();
             this.isBubbled = true;
+        }else if(other.tag === 3){
+            this.starLayer.getComponent('star').dealWithCollision();
         }
     },
 

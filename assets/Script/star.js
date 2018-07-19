@@ -25,7 +25,11 @@ cc.Class({
 
     },
 
-    onCollisionEnter: function(other, self) {
+    dealWithCollision: function(other, self) {
+
+    },
+
+    update: function(dt){
 
     },
 });
