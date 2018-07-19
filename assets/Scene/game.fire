@@ -885,15 +885,15 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -500,
-      "y": -683
+      "x": 0,
+      "y": 0
     },
     "_skewX": 0,
     "_skewY": 0,
     "_localZOrder": 0,
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
-    "groupIndex": 0
+    "groupIndex": 3
   },
   {
     "__type__": "8e6earDlzZArbL4KDPdrpci",
@@ -906,8 +906,13 @@
     "score": {
       "__id__": 8
     },
-    "maxHeight": 0,
-    "minHeight": 0
+    "starPrefab": {
+      "__uuid__": "9ce2f114-a904-4735-b3a2-975c07513c93"
+    },
+    "maxHeight": 500,
+    "minHeight": -200,
+    "finalX": -500,
+    "horizontalVelocity": -300
   },
   {
     "__type__": "cc.Node",

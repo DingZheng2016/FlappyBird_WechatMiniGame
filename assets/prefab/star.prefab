@@ -19,10 +19,13 @@
     "_components": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 3
       }
     ],
     "_prefab": {
-      "__id__": 3
+      "__id__": 4
     },
     "_id": "",
     "_opacity": 255,
@@ -58,7 +61,7 @@
     "_localZOrder": 0,
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
-    "groupIndex": 0
+    "groupIndex": 3
   },
   {
     "__type__": "cc.Sprite",
@@ -85,6 +88,103 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_atlas": null
+  },
+  {
+    "__type__": "cc.PolygonCollider",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "tag": 3,
+    "_offset": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "points": [
+      {
+        "__type__": "cc.Vec2",
+        "x": 20.8,
+        "y": -17.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 20.9,
+        "y": -9.5
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 30.1,
+        "y": -1.1
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 28.6,
+        "y": 12.8
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 12.2,
+        "y": 18.4
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 3,
+        "y": 32
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -6.6,
+        "y": 30.3
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -11.4,
+        "y": 18
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -28.8,
+        "y": 14.6
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -28.9,
+        "y": 5.2
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -19.6,
+        "y": -4.8
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -21.9,
+        "y": -25.7
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": -15.4,
+        "y": -31.6
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 1.1,
+        "y": -25.6
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 15,
+        "y": -33.1
+      },
+      {
+        "__type__": "cc.Vec2",
+        "x": 20.6,
+        "y": -28.4
+      }
+    ]
   },
   {
     "__type__": "cc.PrefabInfo",
