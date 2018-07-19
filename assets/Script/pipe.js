@@ -136,9 +136,9 @@ cc.Class({
         }
         
         if(this.spawnBonus && this.pipeProperty.length >= 2){
-            if(Math.random() < 2){
+            if(Math.random() < 0.3){
                 let r = Math.random();
-                if(r < 0)
+                if(r < 0.5)
                     this.bubbleLayer.getComponent('bubble').spawnNewBubble((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);
                 else
                     this.starLayer.getComponent('star').spawnNewStar((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);

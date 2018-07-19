@@ -22,6 +22,8 @@ cc.Class({
         },
         horizontalVelocity: 0,
         finalX: 0,
+        verticalVelocity: 0,
+        opacityVelocity: 0,
     },
 
     onLoad: function() {
@@ -40,6 +42,8 @@ cc.Class({
     update: function(dt) {
         for(let i = 0; i < this.score.length; ++i){
             this.score[i].x += this.horizontalVelocity * dt;
+            this.score[i].y += this.verticalVelocity * dt;
+            this.score[i].opacity -= this.opacityVelocity * dt;
         }
         if(this.score.length > 0 && this.score[0].x <= this.finalX){
             this.score[0].destroy();

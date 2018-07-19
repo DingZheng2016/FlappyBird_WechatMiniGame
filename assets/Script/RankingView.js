@@ -6,12 +6,26 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        restart: {
+            default: null,
+            type: cc.Node,
+        },
+        home: {
+            default: null,
+            type: cc.Node,
+        },
         rankingScrollView: {
             default: null,
             type: cc.Sprite,
         },
     },
     onLoad() {
+        if(GlobalGame.access === 0){
+            this.home.active = false;
+            this.restart.active = false;
+        }else if(GlobalGame.access === 1){
+            this.back.active = false;
+        }
         this.registerInput();
     },
     start() {
@@ -94,6 +108,14 @@ cc.Class({
     registerInput: function(){
         this.back.on(cc.Node.EventType.TOUCH_START, function (event) {
             cc.director.loadScene('startgame');
+        }, this);
+
+        this.home.on(cc.Node.EventType.TOUCH_START, function (event){
+            cc.director.loadScene('startgame');
+        }, this);
+
+        this.restart.on(cc.Node.EventType.TOUCH_START, function (event){
+            cc.director.loadScene('game');
         }, this);
     }
 });

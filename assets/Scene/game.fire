@@ -545,7 +545,9 @@
       "__uuid__": "fce9c6bf-8238-433a-83c6-c15fb4b37352"
     },
     "horizontalVelocity": -300,
-    "finalX": -500
+    "finalX": -500,
+    "verticalVelocity": 100,
+    "opacityVelocity": 255
   },
   {
     "__type__": "cc.Node",
@@ -815,7 +817,9 @@
     "starPrefab": {
       "__uuid__": "9ce2f114-a904-4735-b3a2-975c07513c93"
     },
-    "plus": null,
+    "plus": {
+      "__id__": 13
+    },
     "maxHeight": 500,
     "minHeight": -200,
     "finalX": -500,

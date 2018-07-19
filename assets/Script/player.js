@@ -69,6 +69,7 @@ cc.Class({
             this.scoreLabel.getComponent('score').passScore();
             this.scoreLabel.getComponent('score').setEndScore();
             this.scheduleOnce(function(){
+                GlobalGame.access = 1;
                 cc.director.loadScene('RankingView');
             }, 2);
         }else if(other.tag === 0 && this.isBubbled === true){
