@@ -20,6 +20,10 @@ cc.Class({
             type: cc.Label,
             default: null,
         },
+        bubbleLayer:{
+            default: null,
+            type: cc.Node,
+        },
         gravity: 0,
         jumpSpeed: 0,
     },
@@ -28,6 +32,7 @@ cc.Class({
         this.anim = this.getComponent(cc.Animation);
         this.anim.play('fly');
         this.currentSpeed = 0;
+        this.isBubbled = false;
 
         cc.director.getCollisionManager().enabled = true;
     },
@@ -42,16 +47,35 @@ cc.Class({
         this.node.y += this.currentSpeed * dt;
         this.currentSpeed -= this.gravity * dt;
     },
-
+    
     onCollisionEnter: function (other, self){
-        console.log('collision enter');
-        GlobalGame.gameOn = false;
-        this.anim.stop('fly');
-        this.endCanvas.active = true;
-        this.scoreLabel.getComponent('score').passScore();
-        this.scoreLabel.getComponent('score').setEndScore();
-        this.schedule(function(){
-            cc.director.loadScene('RankingView');
-        }, 2);
+        /*
+        other.tag: {
+            0: pipe,
+            1: bubble,
+            2: ground,
+        }
+        */
+        console.log('collision tag: ' + other.tag);
+        if(other.tag === 2 || (other.tag === 0 && this.isBubbled === false)){
+            GlobalGame.gameOn = false;
+            this.anim.stop('fly');
+            this.endCanvas.active = true;
+            this.scoreLabel.getComponent('score').passScore();
+            this.scoreLabel.getComponent('score').setEndScore();
+            this.scheduleOnce(function(){
+                cc.director.loadScene('RankingView');
+            }, 2);
+        }else if(other.tag === 0 && this.isBubbled === true){
+            this.isBubbled = false;
+            this.bubbleLayer.getComponent('bubble').cancel();
+        }else if(other.tag === 1){
+            this.bubbleLayer.getComponent('bubble').dealWithCollision();
+            this.isBubbled = true;
+        }
+    },
+
+    setBubbled: function(bubble){
+        this.isBubbled = bubble;
     },
 });

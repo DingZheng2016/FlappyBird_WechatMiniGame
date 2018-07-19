@@ -28,6 +28,14 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
+        bubbleLayer:{
+            default: null,
+            type: cc.Node,
+        },
+        starLayer: {
+            default: null,
+            type: cc.Node,
+        },
         maxHeight: 0,
         minHeight: 0,
         verticalDis: 0,
@@ -57,14 +65,6 @@ cc.Class({
         pipe['pipetop'].setPosition(pos[0]);
         pipe['pipebottom'].setPosition(pos[1]);
         this.pipeProperty.push(pipe);
-    },
-
-    spawnNewBubble: function(posx){
-        
-    },
-
-    spawnNewStar: function(posx){
-
     },
 
     getNewPipePosition: function(){
@@ -141,12 +141,14 @@ cc.Class({
             this.spawnBonus = true;
         }
         
-        if(this.spawnBonus && this.pipeProperty.length >= 2 && Math.random() < 0.25){
-            let r = Math.random();
-            if(r < 0.5)
-                this.spawnNewBubble((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);
-            else
-                this.spawnNewStar((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);
+        if(this.spawnBonus && this.pipeProperty.length >= 2){
+            if(Math.random() < 2){
+                let r = Math.random();
+                if(r < 2)
+                    this.bubbleLayer.getComponent('bubble').spawnNewBubble((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);
+                else
+                    this.starLayer.getComponent('star').spawnNewStar((this.pipeProperty[this.pipeProperty.length - 1]['pipetop'].x + this.pipeProperty[this.pipeProperty.length - 2]['pipetop'].x) / 2);
+            }
             this.spawnBonus = false;
         }
     },
