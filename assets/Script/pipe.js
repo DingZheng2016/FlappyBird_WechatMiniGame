@@ -26,7 +26,7 @@ cc.Class({
         },
         plus: {
             default: null,
-            type: cc.Label,
+            type: cc.Node,
         },
         bubbleLayer:{
             default: null,
@@ -87,7 +87,7 @@ cc.Class({
         this.spawnNewPrefab();
         this.spawnBonus = false;
 
-        this.plus.node.color = new cc.color(255, 0, 255, 255);
+        //this.plus.node.color = new cc.color(255, 0, 255, 255);
     },
 
     update: function (dt) {
@@ -117,18 +117,12 @@ cc.Class({
         if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.scoreX && !this.pipeProperty[0]['scoreCounted']){
             if(this.pipeProperty[0]['verticalMoving']){
                 this.score.getComponent('score').scorePlus(2);
-                this.plus.string = '+2';
+                this.plus.getComponent('plus').spawnPlus(2, this.pipeProperty[0]['pipetop'].x, this.pipeProperty[0]['pipetop'].y - 512 - this.verticalDis / 2)
             }
             else{
                 this.score.getComponent('score').scorePlus(1);
-                this.plus.string = '+1';
+                this.plus.getComponent('plus').spawnPlus(1, this.pipeProperty[0]['pipetop'].x, this.pipeProperty[0]['pipetop'].y - 512 - this.verticalDis / 2)
             }
-            let anim = this.plus.getComponent(cc.Animation);
-            let self = this;
-            anim.play('plus');
-            anim.on('stop', function(){
-                self.plus.string = '';
-            }, this);
             this.pipeProperty[0]['scoreCounted'] = true;
         }
         if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.finalX){

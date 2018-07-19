@@ -17,34 +17,41 @@ cc.Class({
             type: cc.Label,
         },
         starPrefab:{
-            default:null,
-            type:cc.Prefab,
+            default: null,
+            type: cc.Prefab,
+        },
+        plus:{
+            default: null,
+            type: cc.Node,
         },
         maxHeight: 0,
         minHeight: 0,
         finalX:0,
         horizontalVelocity: 0,
+        gravity: 0,
+        initialVerticalVelocity: 0,
     },
 
     onLoad: function(){
-        this.star=null;
+        this.star = null;
+        this.velocity = 0;
     },
 
     spawnNewStar: function(posx) {
         if(this.star)
             return;
-        console.log('spawnNewStar');
-        this.star=cc.instantiate(this.starPrefab);
+        this.star = cc.instantiate(this.starPrefab);
         this.node.addChild(this.star);
+        this.velocity = this.initialVerticalVelocity;
         this.star.setPosition(cc.p(posx, Math.random() * (this.maxHeight - this.minHeight) + this.minHeight));
     },
 
-    dealWithCollision: function(other, self) {
+    dealWithCollision: function() {
         if(this.star){
-            console.log('star');
+            this.plus.getComponent('plus').spawnPlus(1, this.star.x, this.star.y);
             this.star.destroy();
             this.star = null;
-            this.score.getComponent('score').scorePlus(5);
+            this.score.getComponent('score').scorePlus(1);
         }
     },
 
@@ -52,13 +59,15 @@ cc.Class({
         if(!GlobalGame.gameOn)
             return;
         if(this.star) {
+            this.star.y += this.velocity * dt;
+            this.velocity -= this.gravity * dt;
+            if(this.velocity <= -this.initialVerticalVelocity)
+                this.velocity = this.initialVerticalVelocity;
             this.star.x += this.horizontalVelocity * dt;
-            if(this.star.x<=this.finalX){
+            if(this.star.x <= this.finalX){
                 this.star.destroy();
                 this.star = null;
             }
         }
-
-
     },
 });

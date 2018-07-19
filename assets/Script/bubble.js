@@ -50,7 +50,7 @@ cc.Class({
         this.bubble['bubble'].setPosition(cc.p(posx, Math.random() * (this.maxHeight - this.minHeight) + this.minHeight));
     },
 
-    dealWithCollision: function(other, self) {
+    dealWithCollision: function() {
         if(this.bubbleAttached){
             this.bubbleAttached['bubble'].destroy();
             this.bubbleAttached = null;
