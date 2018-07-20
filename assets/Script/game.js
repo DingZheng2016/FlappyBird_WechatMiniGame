@@ -20,9 +20,31 @@ cc.Class({
             default: null,
             type: cc.AudioSource,
         },
+        socketlayer: {
+            default: null,
+            type: cc.Node,
+        },
     },
 
     onLoad: function(){
+        
+        if(GlobalGame.isDouble && CC_WECHATGAME){
+            this.socket = this.socketlayer.getComponent('socket');
+            let self = this;
+            wx.getUserInfo({
+                success: function(res) {
+                    let data = {};
+                    data['type'] = 'request';
+                    data['nickName'] = res.userInfo.nickName;
+                    data['avatarUrl'] = res.userInfo.avatarUrl;
+                    console.log(data);
+                    self.socket.sendSocketMessage(data);
+                }
+            });
+        } else {
+            this.node.getChildByName('player2').active = false;
+            this.node.getChildByName('score2').active = false;
+        }
         this.setInputControl();
         GlobalGame.gameOn = true;
         this.audioBg.play();
@@ -31,6 +53,8 @@ cc.Class({
     setInputControl: function(){
         let self = this;
         this.node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            if(GlobalGame.isDouble)
+                self.socket.sendJump();
             self.player.getComponent('player').jump();
         }, this);
     },

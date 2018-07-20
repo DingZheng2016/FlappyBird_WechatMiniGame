@@ -32,7 +32,11 @@ cc.Class({
             default: null,
             type: cc.AudioSource,
         },
-        gravity: 0,
+        socketLayer: {
+            default: null,
+            type: cc.Node,
+        },
+        gravity: 1000,
         jumpSpeed: 0,
     },
 
@@ -41,6 +45,7 @@ cc.Class({
         this.anim.play('fly');
         this.currentSpeed = 0;
         this.isBubbled = false;
+        this.gravity = 1000;
 
         cc.director.getCollisionManager().enabled = true;
     },
@@ -67,16 +72,24 @@ cc.Class({
         */
         console.log('collision tag: ' + other.tag);
         if(other.tag === 2 || (other.tag === 0 && this.isBubbled === false)){
+            console.log('die');
+            if(GlobalGame.isDouble){
+                console.log('send die');
+                this.socketLayer.getComponent('socket').sendDie();
+                this.gravity = 0;
+                this.currentSpeed = 0;
+            }else{
+                GlobalGame.gameOn = false;
+                this.endCanvas.active = true;
+                this.scoreLabel.getComponent('score').passScore();
+                this.scoreLabel.getComponent('score').setEndScore();
+                this.scheduleOnce(function(){
+                    GlobalGame.access = 1;
+                    cc.director.loadScene('RankingView');
+                }, 2);
+            }
             this.audioDie.play();
-            GlobalGame.gameOn = false;
             this.anim.stop('fly');
-            this.endCanvas.active = true;
-            this.scoreLabel.getComponent('score').passScore();
-            this.scoreLabel.getComponent('score').setEndScore();
-            this.scheduleOnce(function(){
-                GlobalGame.access = 1;
-                cc.director.loadScene('RankingView');
-            }, 2);
         }else if(other.tag === 0 && this.isBubbled === true){
             this.isBubbled = false;
             this.bubbleLayer.getComponent('bubble').cancel();
