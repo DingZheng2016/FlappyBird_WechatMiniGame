@@ -72,6 +72,9 @@ cc.Class({
         pipe['pipetop'].setPosition(pos[0]);
         pipe['pipebottom'].setPosition(pos[1]);
         this.pipeProperty.push(pipe);
+
+        if(this.total % 30 == 0)
+            GlobalGame.globalHorizontalVelocity -= 80;
     },
 
     getNewPipePosition: function(){
@@ -84,7 +87,7 @@ cc.Class({
     getVerticalMoving: function(num){
         if(num <= 10)
             return false;
-        if(Math.random() < Math.min(num / 100 + 0.1, 0.8))
+        if(Math.random() < num % 30 / 50)
             return true;
     },
 

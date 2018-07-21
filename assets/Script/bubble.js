@@ -64,7 +64,10 @@ cc.Class({
             bubble: this.bubble['bubble'],
             remain: (this.maxPipe + 0.5) * this.pipeDis,
         };
+        this.bubbleAttached['bubble'].opacity = 255;
+        this.isGoingToDisappear = false;
         this.bubble = null;
+        this.unschedule(this.winkle);
     },
 
     update: function(dt) {
@@ -102,13 +105,15 @@ cc.Class({
     cancel: function() {
         this.isGoingToDisappear = true;
         this.time = 0.1;
-        this.scheduleOnce(function(){
-            if(this.bubbleAttached){
-                this.bubbleAttached['bubble'].destroy();
-                this.bubbleAttached = null;
-                this.player.getComponent('player').setBubbled(false);
-            }
-            this.isGoingToDisappear = false;
-        }, 0.8);
+        this.scheduleOnce(this.winkle, 0.8);
+    },
+
+    winkle: function() {
+        if(this.bubbleAttached){
+            this.bubbleAttached['bubble'].destroy();
+            this.bubbleAttached = null;
+            this.player.getComponent('player').setBubbled(false);
+        }
+        this.isGoingToDisappear = false;
     },
 });

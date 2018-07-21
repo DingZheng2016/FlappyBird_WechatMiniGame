@@ -916,8 +916,8 @@
     "audioBubble": {
       "__id__": 36
     },
-    "maxHeight": 500,
-    "minHeight": -200,
+    "maxHeight": 350,
+    "minHeight": -50,
     "finalX": -500,
     "gravity": 100,
     "initialVerticalVelocity": 100,
@@ -1130,8 +1130,8 @@
     "audioScore1": {
       "__id__": 31
     },
-    "maxHeight": 500,
-    "minHeight": -200,
+    "maxHeight": 350,
+    "minHeight": -50,
     "finalX": -500,
     "gravity": 100,
     "initialVerticalVelocity": 100
