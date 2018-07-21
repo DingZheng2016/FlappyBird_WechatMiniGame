@@ -15,4 +15,5 @@ window.GlobalGame = {
     uuid: '',
     isDoubleDead: false,
     globalHorizontalVelocity: 0,
+    delayTime: 30,
 };

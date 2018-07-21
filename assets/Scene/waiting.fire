@@ -729,7 +729,11 @@
     },
     "info": {
       "__id__": 6
-    }
+    },
+    "player2": null,
+    "score2": null,
+    "scoreLabel": null,
+    "endCanvas": null
   },
   {
     "__type__": "cc.Canvas",

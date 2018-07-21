@@ -48,7 +48,7 @@ cc.Class({
         let self = this;
         this.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             if(GlobalGame.isDouble)
-                self.socket.sendJump();
+                self.socket.sendJump(self.player.y);
             self.player.getComponent('player').jump();
         }, this);
     },

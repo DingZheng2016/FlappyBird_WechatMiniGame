@@ -52,13 +52,15 @@ cc.Class({
                             self.player1Pic.spriteFrame = new cc.SpriteFrame(texture);
                         } catch (e) {
                             cc.log(e);
-                            self.player1Pic.node.active = false;
+                            console.log('fetch error 1');
+                            //self.player1Pic.node.active = false;
                         }
                     };
                     image.src = avatarUrl;
                 }catch (e) {
                     cc.log(e);
-                    self.player1Pic.node.active = false;
+                    console.log('fetch error 2');
+                    //self.player1Pic.node.active = false;
                 }
             }
         });

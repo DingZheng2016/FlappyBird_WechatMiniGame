@@ -19,7 +19,7 @@ cc.Class({
             type: cc.Sprite,
         },
     },
-    onLoad() {
+    onLoad: function() {
         if(GlobalGame.access === 0){
             this.home.active = false;
             this.restart.active = false;
@@ -28,7 +28,7 @@ cc.Class({
         }
         this.registerInput();
     },
-    start() {
+    start: function() {
         
         if (CC_WECHATGAME) {
             //window.wx.showShareMenu({withShareTicket: true});//设置分享按钮，方便获取群id展示群排行榜
@@ -94,14 +94,14 @@ cc.Class({
     },
     */
     // 刷新子域的纹理
-    _updateSubDomainCanvas() {
+    _updateSubDomainCanvas: function() {
         if (window.sharedCanvas != undefined) {
             this.tex.initWithElement(window.sharedCanvas);
             this.tex.handleLoadedTexture();
             this.rankingScrollView.spriteFrame = new cc.SpriteFrame(this.tex);
         }
     },
-    update() {
+    update: function() {
         this._updateSubDomainCanvas();
     },
 

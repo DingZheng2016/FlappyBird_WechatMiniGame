@@ -1,0 +1,19 @@
+{
+  "name": "flappybird_wechatminigame",
+  "version": "1.0.0",
+  "description": "Course project for the web front-end course of 2018 summer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DingZheng2016/FlappyBird_WechatMiniGame.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DingZheng2016/FlappyBird_WechatMiniGame/issues"
+  },
+  "homepage": "https://github.com/DingZheng2016/FlappyBird_WechatMiniGame#readme"
+}

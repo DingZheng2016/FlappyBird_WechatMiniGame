@@ -50,6 +50,7 @@ cc.Class({
         this.socketOpen = false;
         this.socketMsgQueue = [];
         let self = this;
+        console.log(this);
 
         wx.connectSocket({
             url: 'wss://dingz16.iterator-traits.com',
@@ -63,6 +64,11 @@ cc.Class({
             }
             self.socketMsgQueue = [];
             self.sendSocketMessage({type: 'connect', uuid: GlobalGame.uuid});
+            /*
+            self.schedule(function(){
+                self.testDelay.call(self);
+            } ,5);
+            */
         });
 
         wx.onSocketMessage(function(res) {
@@ -88,15 +94,31 @@ cc.Class({
                             }, 2);
                         } catch (e) {
                             cc.log(e);
-                            self.player2Pic.node.active = false;
+                            console.log('fetch error 1')
+                            //self.player2Pic.node.active = false;
                         }
                     };
                     image.src = dict['avatarUrl'];
                 }catch (e) {
                     cc.log(e);
-                    self.player2Pic.node.active = false;
+                    console.log('fetch error 2');
+                    //self.player2Pic.node.active = false;
                 }
             }else if(dict['type'] === 'jump'){
+                //let timestamp2 = (new Date()).valueOf();
+                //let timestamp1 = dict['timestamp'];
+                //let dt = timestamp2 - timestamp1;
+                //console.log(dt);
+                /*
+                let dt = parseInt(dict['delay']) + GlobalGame.delayTime;
+                dt = dt * 0.001;
+                console.log('dt: ' + dt);
+                let currentSpeed = self.player2.getComponent('player').currentSpeed;
+                let gravity = self.player2.getComponent('player').gravity;
+                console.log((- currentSpeed - dt * gravity) * dt)
+                self.player2.y += (- currentSpeed - dt * gravity) * dt;
+                */
+                self.player2.y = parseInt(dict['posy']);
                 self.player2.getComponent('player').jump();
             }else if(dict['type'] === 'score'){
                 self.score2.string = 'Score: ' + dict['score'];
@@ -115,6 +137,12 @@ cc.Class({
                     GlobalGame.access = 0;
                     cc.director.loadScene('RankingView');
                 }, 2);
+            }else if(dict['type'] === 'delay'){
+                self.totalDelay += (new Date()).valueOf() - dict['timestamp'];
+                self.totalReceive += 1;
+                if(self.totalReceive === 12){
+                    GlobalGame.delayTime = self.totalDelay / 2 / 12;
+                }
             }
         });
     },
@@ -130,8 +158,15 @@ cc.Class({
                 data: JSON.stringify(msg)
             });
         }
-        else
-            this.socketMsgQueue.push(msg);
+        else{
+            console.log('error');
+            try{
+                this.socketMsgQueue.push(msg);
+            }catch(e){
+                console.log(this);
+                console.log(e);
+            }
+        }
     },
 
     close: function(){
@@ -158,9 +193,10 @@ cc.Class({
         });
     },
 
-    sendJump: function() {
+    sendJump: function(posy) {
         this.sendSocketMessage({
             type: 'jump',
+            posy: posy,
             uuid: GlobalGame.uuid,
         });
     },
@@ -178,5 +214,17 @@ cc.Class({
             type: 'die',
             uuid: GlobalGame.uuid,
         });
+    },
+
+    testDelay: function(){
+        this.totalDelay = 0;
+        this.totalReceive = 0;
+        for(let i = 0; i < 12; ++i){
+            this.sendSocketMessage({
+                type: 'delay',
+                timestamp: (new Date()).valueOf(),
+            });
+        }
+        
     },
 });
