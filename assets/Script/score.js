@@ -44,15 +44,16 @@ cc.Class({
     },
 
     passScore: function(){
+        let self = this;
         if (CC_WECHATGAME) {
             console.log('Main: pass score');
             window.wx.postMessage({
                 messageType: 3,
                 MAIN_MENU_NUM: "x1",
-                score: this.score,
+                score: self.score,
             });
         } else {
-            cc.log("提交得分: x1 : " + this.score)
+            cc.log("提交得分: x1 : " + self.score)
         }
     },
 
@@ -76,7 +77,7 @@ cc.Class({
         let info = '';
         if(score2 < this.score)
             info = '你赢了';
-        else if(score > this.score)
+        else if(score2 > this.score)
             info = '你输了';
         else
             info = '平局';

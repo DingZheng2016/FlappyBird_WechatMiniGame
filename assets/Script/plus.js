@@ -20,7 +20,6 @@ cc.Class({
             default: null,
             type: cc.Prefab,
         },
-        horizontalVelocity: 0,
         finalX: 0,
         verticalVelocity: 0,
         opacityVelocity: 0,
@@ -41,7 +40,7 @@ cc.Class({
 
     update: function(dt) {
         for(let i = 0; i < this.score.length; ++i){
-            this.score[i].x += this.horizontalVelocity * dt;
+            this.score[i].x += GlobalGame.globalHorizontalVelocity * dt;
             this.score[i].y += this.verticalVelocity * dt;
             this.score[i].opacity -= this.opacityVelocity * dt;
         }

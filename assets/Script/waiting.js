@@ -37,13 +37,10 @@ cc.Class({
         let self = this;
         wx.getUserInfo({
             success: function(res) {
-                let data = {};
-                data['type'] = 'request';
-                data['nickName'] = res.userInfo.nickName;
-                data['avatarUrl'] = res.userInfo.avatarUrl;
-                console.log(data);
-                self.socket.sendSocketMessage(data);
-                self.player1Name.string = data['nickName'];
+                let nickName = res.userInfo.nickName;
+                let avatarUrl = res.userInfo.avatarUrl;
+                self.socket.sendRequest(nickName, avatarUrl);
+                self.player1Name.string = nickName;
 
                 try {
                     let image = wx.createImage();
@@ -58,7 +55,7 @@ cc.Class({
                             self.player1Pic.node.active = false;
                         }
                     };
-                    image.src = data['avatarUrl'];
+                    image.src = avatarUrl;
                 }catch (e) {
                     cc.log(e);
                     self.player1Pic.node.active = false;
@@ -70,8 +67,9 @@ cc.Class({
     },
 
     registerInput: function(){
+        let self = this;
         this.back.on(cc.Node.EventType.TOUCH_START, function (event) {
-            this.socket.close();
+            self.socket.close();
             cc.director.loadScene('startgame');
         }, this);
     },

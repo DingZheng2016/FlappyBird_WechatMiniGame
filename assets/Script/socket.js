@@ -43,8 +43,10 @@ cc.Class({
     },
 
     onLoad: function() {
+        console.log('socket onload');
         if(!CC_WECHATGAME || !GlobalGame.isDouble)
             return ;
+        console.log('isDouble = true');
         this.socketOpen = false;
         this.socketMsgQueue = [];
         let self = this;
@@ -98,11 +100,17 @@ cc.Class({
                 self.player2.getComponent('player').jump();
             }else if(dict['type'] === 'score'){
                 self.score2.string = 'Score: ' + dict['score'];
+            }else if(dict['type'] === 'die'){
+                self.player2.active = false;
             }else if(dict['type'] === 'finish'){
                 GlobalGame.gameOn = false;
                 self.endCanvas.active = true;
                 self.scoreLabel.getComponent('score').passScore();
-                self.scoreLabel.getComponent('score').setDoubleEnd(parseInt(this.score2.string.split(' ')[1]));
+                console.log('passScore end');
+                console.log(self.score2.string.split(' ')[1]);
+                self.scoreLabel.getComponent('score').setDoubleEnd(parseInt(self.score2.string.split(' ')[1]));
+                console.log('setScore end');
+                self.close();
                 self.scheduleOnce(function(){
                     GlobalGame.access = 0;
                     cc.director.loadScene('RankingView');
@@ -117,10 +125,11 @@ cc.Class({
             return ;
         }
         console.log(this.socketOpen + ': ' + JSON.stringify(msg));
-        if (this.socketOpen)
+        if (this.socketOpen){
             wx.sendSocketMessage({
                 data: JSON.stringify(msg)
             });
+        }
         else
             this.socketMsgQueue.push(msg);
     },
@@ -134,6 +143,15 @@ cc.Class({
                 console.log(e);
             }
         }
+    },
+
+    sendRequest(nickName, avatarUrl){
+        console.log('sendRequest');
+        this.sendSocketMessage({
+            type: 'request',
+            nickName: nickName,
+            avatarUrl: avatarUrl,
+        });
     },
 
     sendJump: function() {

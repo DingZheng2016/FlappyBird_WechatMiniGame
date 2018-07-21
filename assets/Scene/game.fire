@@ -321,7 +321,6 @@
     "verticalDis": 350,
     "horizontalDis": 450,
     "pipeHeight": 1024,
-    "pipeHorizontalVelocity": -300,
     "initialX": 700,
     "finalX": -500,
     "scoreX": -230,
@@ -844,7 +843,6 @@
     "plus2Prefab": {
       "__uuid__": "fce9c6bf-8238-433a-83c6-c15fb4b37352"
     },
-    "horizontalVelocity": -300,
     "finalX": -500,
     "verticalVelocity": 100,
     "opacityVelocity": 255
@@ -1135,7 +1133,6 @@
     "maxHeight": 500,
     "minHeight": -200,
     "finalX": -500,
-    "horizontalVelocity": -300,
     "gravity": 100,
     "initialVerticalVelocity": 100
   },
@@ -1579,7 +1576,6 @@
       "__id__": 40
     },
     "_enabled": true,
-    "speed": 200,
     "border": 206,
     "origin": 509
   },

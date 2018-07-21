@@ -73,11 +73,13 @@ cc.Class({
         console.log('collision tag: ' + other.tag);
         if(other.tag === 2 || (other.tag === 0 && this.isBubbled === false)){
             console.log('die');
+            GlobalGame.isDoubleDead = true;
             if(GlobalGame.isDouble){
                 console.log('send die');
                 this.socketLayer.getComponent('socket').sendDie();
                 this.gravity = 0;
                 this.currentSpeed = 0;
+                this.node.active = false;
             }else{
                 GlobalGame.gameOn = false;
                 this.endCanvas.active = true;

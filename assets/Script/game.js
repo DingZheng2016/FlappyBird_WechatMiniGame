@@ -27,20 +27,14 @@ cc.Class({
     },
 
     onLoad: function(){
+
+        GlobalGame.globalHorizontalVelocity = -300;
         
         if(GlobalGame.isDouble && CC_WECHATGAME){
+            console.log('_getComponent');
             this.socket = this.socketlayer.getComponent('socket');
-            let self = this;
-            wx.getUserInfo({
-                success: function(res) {
-                    let data = {};
-                    data['type'] = 'request';
-                    data['nickName'] = res.userInfo.nickName;
-                    data['avatarUrl'] = res.userInfo.avatarUrl;
-                    console.log(data);
-                    self.socket.sendSocketMessage(data);
-                }
-            });
+            console.log('getComponent_');
+            GlobalGame.isDoubleDead = false;
         } else {
             this.node.getChildByName('player2').active = false;
             this.node.getChildByName('score2').active = false;

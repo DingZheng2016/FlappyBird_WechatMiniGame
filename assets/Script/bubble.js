@@ -72,7 +72,7 @@ cc.Class({
             return ;
 
         if(this.bubble){
-            this.bubble['bubble'].x += this.horizontalVelocity * dt;
+            this.bubble['bubble'].x += GlobalGame.globalHorizontalVelocity * dt;
             this.bubble['bubble'].y += this.bubble['velocity'] * dt;
             this.bubble['velocity'] -= this.gravity * dt;
             if(this.bubble['velocity'] <= -this.initialVerticalVelocity)
@@ -84,7 +84,7 @@ cc.Class({
         }
 
         if(this.bubbleAttached){
-            this.bubbleAttached['remain'] += this.horizontalVelocity * dt;
+            this.bubbleAttached['remain'] += GlobalGame.globalHorizontalVelocity * dt;
             this.bubbleAttached['bubble'].x = this.player.x;
             this.bubbleAttached['bubble'].y = this.player.y;
             if(this.bubbleAttached['remain'] <= 0 && !this.isGoingToDisappear)
