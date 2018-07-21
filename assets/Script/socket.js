@@ -137,6 +137,10 @@ cc.Class({
     close: function(){
         if(this.socketOpen){
             try{
+                this.sendSocketMessage({
+                    type: 'close',
+                    uuid: GlobalGame.uuid,
+                });
                 this.socketOpen = false;
                 wx.closeSocket();
             }catch(e){
