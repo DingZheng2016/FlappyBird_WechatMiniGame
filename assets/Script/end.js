@@ -15,12 +15,30 @@ cc.Class({
         endLabel: {
             type: cc.Label,
             default: null,
-        }
+        },
+        opacityVelocity: 0,
     },
 
     onLoad: function () {
         //console.log('end');
         //this.node.active = false;
         this.endLabel.string = '';
+        this.levelUp = false;
+    },
+
+    setLevelUp: function () {
+        this.endLabel.string = 'Level Up';
+        this.levelUp = true;
+    },
+
+    update: function(dt) {
+        if(!this.levelUp)
+            return;
+        this.node.opacity -= this.opacityVelocity * dt;
+        if(this.node.opacity <= 0){
+            this.endLabel.string = '';
+            this.levelUp = false;
+            this.node.opacity = 255;
+        }
     },
 });

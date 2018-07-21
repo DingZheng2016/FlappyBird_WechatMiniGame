@@ -44,6 +44,10 @@ cc.Class({
             default: null,
             type: cc.AudioSource,
         },
+        end: {
+            default: null,
+            type: cc.Node,
+        },
         maxHeight: 0,
         minHeight: 0,
         verticalDis: 0,
@@ -73,8 +77,10 @@ cc.Class({
         pipe['pipebottom'].setPosition(pos[1]);
         this.pipeProperty.push(pipe);
 
-        if(this.total % 30 == 0)
+        if(this.total % 30 == 0){
             GlobalGame.globalHorizontalVelocity -= 80;
+            this.end.getComponent('end').setLevelUp();
+        } 
     },
 
     getNewPipePosition: function(){

@@ -82,7 +82,7 @@ cc.Class({
                 this.node.active = false;
             }else{
                 GlobalGame.gameOn = false;
-                this.endCanvas.active = true;
+                //this.endCanvas.active = true;
                 this.scoreLabel.getComponent('score').passScore();
                 this.scoreLabel.getComponent('score').setEndScore();
                 this.scheduleOnce(function(){
