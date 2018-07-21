@@ -316,6 +316,9 @@
     "audioScore2": {
       "__id__": 38
     },
+    "end": {
+      "__id__": 11
+    },
     "maxHeight": 1100,
     "minHeight": 500,
     "verticalDis": 350,
@@ -430,9 +433,9 @@
     },
     "_enabled": true,
     "_useOriginalSize": false,
-    "_actualFontSize": 40,
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_actualFontSize": 60,
+    "_fontSize": 60,
+    "_lineHeight": 60,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -480,7 +483,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 0,
-      "height": 40
+      "height": 60
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -508,7 +511,8 @@
     "_enabled": true,
     "endLabel": {
       "__id__": 10
-    }
+    },
+    "opacityVelocity": 125
   },
   {
     "__type__": "cc.Node",
