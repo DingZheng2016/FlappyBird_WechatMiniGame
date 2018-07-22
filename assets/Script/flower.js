@@ -25,7 +25,6 @@ cc.Class({
             type:cc.Node,
         },
         finalX:0,
-        horizontalVelocity: 0,
         verticalVelocity: 0,
         flowerHeight:0,
         leafHeight:0,
@@ -81,8 +80,8 @@ cc.Class({
         if(!this.flower && !this.leaf)
             return;
 
-        this.flower.x += this.horizontalVelocity * dt;
-        this.leaf.x += this.horizontalVelocity * dt;
+        this.flower.x += GlobalGame.globalHorizontalVelocity * dt;
+        this.leaf.x += GlobalGame.globalHorizontalVelocity * dt;
 
         if(this.pipeVertical){
             if(this.pipeDownMoving){
