@@ -17,9 +17,9 @@ cc.Class({
             type: cc.Label,
         },
 
-        endLabel:{
+        end:{
             default: null,
-            type: cc.Label,
+            type: cc.Node,
         },
 
         socketLayer: {
@@ -70,17 +70,10 @@ cc.Class({
     },
 
     setEndScore: function(){
-        this.endLabel.string = '最终得分：' + this.score;
+        this.end.getComponent('end').setSingleEnd(this.score);
     },
 
     setDoubleEnd: function(score2){
-        let info = '';
-        if(score2 < this.score)
-            info = '你赢了';
-        else if(score2 > this.score)
-            info = '你输了';
-        else
-            info = '平局';
-        this.endLabel.string = info + ' ' + this.score + ':' + score2;
+        this.end.getComponent('end').setDoubleEnd(this.score, score2);
     },
 });

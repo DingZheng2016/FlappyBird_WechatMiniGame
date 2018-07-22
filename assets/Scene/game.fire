@@ -113,7 +113,7 @@
         "__id__": 40
       },
       {
-        "__id__": 13
+        "__id__": 12
       }
     ],
     "_tag": -1,
@@ -404,7 +404,7 @@
       "__id__": 44
     },
     "end": {
-      "__id__": 13
+      "__id__": 12
     },
     "maxHeight": 1100,
     "minHeight": 500,
@@ -504,34 +504,12 @@
     "scoreDisplay": {
       "__id__": 10
     },
-    "endLabel": {
+    "end": {
       "__id__": 12
     },
     "socketLayer": {
       "__id__": 15
     }
-  },
-  {
-    "__type__": "cc.Label",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 13
-    },
-    "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 60,
-    "_fontSize": 60,
-    "_lineHeight": 60,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "",
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 0
   },
   {
     "__type__": "cc.Node",
@@ -545,7 +523,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 12
+        "__id__": 13
       },
       {
         "__id__": 14
@@ -589,15 +567,37 @@
     "groupIndex": 0
   },
   {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 12
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 60,
+    "_fontSize": 60,
+    "_lineHeight": 60,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_N$string": "",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 0
+  },
+  {
     "__type__": "75dcccH8v5Fg78Ao1hOZGCp",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 13
+      "__id__": 12
     },
     "_enabled": true,
     "endLabel": {
-      "__id__": 12
+      "__id__": 13
     },
     "opacityVelocity": 125
   },
@@ -674,7 +674,7 @@
       "__id__": 10
     },
     "endCanvas": {
-      "__id__": 13
+      "__id__": 12
     }
   },
   {
@@ -1129,7 +1129,7 @@
     },
     "_enabled": true,
     "endCanvas": {
-      "__id__": 13
+      "__id__": 12
     },
     "scoreLabel": {
       "__id__": 10

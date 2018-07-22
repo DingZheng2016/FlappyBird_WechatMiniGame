@@ -24,6 +24,26 @@ cc.Class({
         //this.node.active = false;
         this.endLabel.string = '';
         this.levelUp = false;
+        this.end = false;
+    },
+
+    setSingleEnd: function(score) {
+        this.end = true;
+        this.node.opacity = 255;
+        this.endLabel.string = '最终得分：' + score;
+    },
+
+    setDoubleEnd: function(score1, score2) {
+        this.end = true;
+        this.node.opacity = 255;
+        let info = '';
+        if(score2 < score1)
+            info = '你赢了';
+        else if(score2 > score1)
+            info = '你输了';
+        else
+            info = '平局';
+        this.endLabel.string = info + ' ' + score1 + ':' + score2;
     },
 
     setLevelUp: function () {
@@ -32,7 +52,7 @@ cc.Class({
     },
 
     update: function(dt) {
-        if(!this.levelUp)
+        if(!this.levelUp || this.end)
             return;
         this.node.opacity -= this.opacityVelocity * dt;
         if(this.node.opacity <= 0){
