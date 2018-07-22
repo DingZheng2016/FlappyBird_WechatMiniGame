@@ -81,7 +81,7 @@ cc.Class({
         pipe['pipebottom'].setPosition(pos[1]);
         this.pipeProperty.push(pipe);
 
-        //if(Math.random()<=0.1)
+        if(Math.random()<=0.1)
         this.flowerLayer.getComponent('flower').spawnNewFlower(pos[1], pipe['verticalMoving'], pipe['verticalDownMoving']);
 
         if (this.total % 30 == 0) {
