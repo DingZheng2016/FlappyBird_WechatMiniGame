@@ -29,9 +29,7 @@ cc.Class({
         finalX: 0,
         gravity: 0,
         initialVerticalVelocity: 0,
-        horizontalVelocity: 0,
-        maxPipe: 0,
-        pipeDis: 0,
+        bubbleMaxTime: 0,
         winkyTime: 0,
     },
 
@@ -57,17 +55,17 @@ cc.Class({
     dealWithCollision: function() {
         this.audioBubble.play();
         if(this.bubbleAttached){
-            this.bubbleAttached['bubble'].destroy();
+            this.bubbleAttached.destroy();
             this.bubbleAttached = null;
         }
-        this.bubbleAttached = {
-            bubble: this.bubble['bubble'],
-            remain: (this.maxPipe + 0.5) * this.pipeDis,
-        };
-        this.bubbleAttached['bubble'].opacity = 255;
-        this.isGoingToDisappear = false;
+        this.bubbleAttached = this.bubble['bubble'];
+        this.bubbleAttached.opacity = 255;
+        //this.isGoingToDisappear = false;
         this.bubble = null;
         this.unschedule(this.winkle);
+        this.unschedule(this.cancel);
+        this.unschedule(this.over);
+        this.scheduleOnce(this.cancel, this.bubbleMaxTime);
     },
 
     update: function(dt) {
@@ -87,33 +85,37 @@ cc.Class({
         }
 
         if(this.bubbleAttached){
-            this.bubbleAttached['remain'] += GlobalGame.globalHorizontalVelocity * dt;
-            this.bubbleAttached['bubble'].x = this.player.x;
-            this.bubbleAttached['bubble'].y = this.player.y;
-            if(this.bubbleAttached['remain'] <= 0 && !this.isGoingToDisappear)
-                this.cancel();
+            //this.bubbleAttached['remain'] += GlobalGame.globalHorizontalVelocity * dt;
+            this.bubbleAttached.x = this.player.x;
+            this.bubbleAttached.y = this.player.y;
+            /*
             if(this.isGoingToDisappear){
                 if(this.time >= this.winkyTime){
-                    this.bubbleAttached['bubble'].opacity = 255 - this.bubbleAttached['bubble'].opacity;     
+                    this.bubbleAttached.opacity = 255 - this.bubbleAttached.opacity;     
                     this.time = 0;
                 }
                 this.time += dt;
             }
+            */
         }
     },
 
     cancel: function() {
-        this.isGoingToDisappear = true;
-        this.time = 0.1;
-        this.scheduleOnce(this.winkle, 0.8);
+        //this.isGoingToDisappear = true;
+        //this.time = 0.1;
+        this.schedule(this.winkle, this.winkyTime);
+        this.scheduleOnce(this.over, 1);
     },
 
     winkle: function() {
-        if(this.bubbleAttached){
-            this.bubbleAttached['bubble'].destroy();
-            this.bubbleAttached = null;
-            this.player.getComponent('player').setBubbled(false);
-        }
-        this.isGoingToDisappear = false;
+        this.bubbleAttached.opacity = 255 - this.bubbleAttached.opacity;
+    },
+
+    over: function() {
+        this.unschedule(this.cancel);
+        this.unschedule(this.winkle);
+        this.bubbleAttached.destroy();
+        this.bubbleAttached = null;
+        this.player.getComponent('player').setBubbled(false);
     },
 });

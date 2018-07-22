@@ -103,7 +103,7 @@ cc.Class({
             this.anim.stop('fly');
             //this.anim.stop('flower');
         }else if(other.tag === 0 && this.isBubbled === true){
-            this.isBubbled = false;
+            //this.isBubbled = false;
             this.bubbleLayer.getComponent('bubble').cancel();
         }else if(other.tag === 1){
             this.bubbleLayer.getComponent('bubble').dealWithCollision();
@@ -111,7 +111,7 @@ cc.Class({
         }else if(other.tag === 3){
             this.starLayer.getComponent('star').dealWithCollision();
         }else if(other.tag === 4 && this.isBubbled === true){
-            this.isBubbled = false;
+            //this.isBubbled = false;
             this.bubbleLayer.getComponent('bubble').cancel();
         }
         else if(other.tag === 4 && this.isBubbled === false){
