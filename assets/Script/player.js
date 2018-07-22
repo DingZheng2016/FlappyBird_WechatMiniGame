@@ -28,7 +28,15 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        flowerLayer:{
+            default: null,
+            type: cc.Node,
+        },
         audioDie: {
+            default: null,
+            type: cc.AudioSource,
+        },
+        audioEat: {
             default: null,
             type: cc.AudioSource,
         },
@@ -64,10 +72,11 @@ cc.Class({
     onCollisionEnter: function (other, self){
         /*
         other.tag: {
-            0: pipe,
+            0: pipe,leaf
             1: bubble,
             2: ground,
             3: star,
+            4: flower,
         }
         */
         console.log('collision tag: ' + other.tag);
@@ -92,6 +101,7 @@ cc.Class({
             }
             this.audioDie.play();
             this.anim.stop('fly');
+            //this.anim.stop('flower');
         }else if(other.tag === 0 && this.isBubbled === true){
             this.isBubbled = false;
             this.bubbleLayer.getComponent('bubble').cancel();
@@ -100,6 +110,24 @@ cc.Class({
             this.isBubbled = true;
         }else if(other.tag === 3){
             this.starLayer.getComponent('star').dealWithCollision();
+        }else if(other.tag === 4 && this.isBubbled === true){
+            this.isBubbled = false;
+            this.bubbleLayer.getComponent('bubble').cancel();
+        }
+        else if(other.tag === 4 && this.isBubbled === false){
+            this.audioEat.play();
+            console.log('play');
+            GlobalGame.gameOn = false;
+            this.anim.stop('fly');
+            this.anim.destroy();
+            this.anim.stop('flower');
+            this.endCanvas.active = true;
+            this.scoreLabel.getComponent('score').passScore();
+            this.scoreLabel.getComponent('score').setEndScore();
+            this.scheduleOnce(function(){
+                GlobalGame.access = 1;
+                cc.director.loadScene('RankingView');
+            }, 2);
         }
     },
 

@@ -36,6 +36,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        flowerLayer: {
+            default: null,
+            type: cc.Node,
+        },
         audioScore1:{
             default: null,
             type: cc.AudioSource,
@@ -68,19 +72,21 @@ cc.Class({
         pipe['num'] = this.total;
         pipe['verticalMoving'] = this.getVerticalMoving(this.total);
         pipe['verticalDownMoving'] = true;
-        
 
         this.node.addChild(pipe['pipetop']);
         this.node.addChild(pipe['pipebottom']);
         let pos = this.getNewPipePosition();
+
         pipe['pipetop'].setPosition(pos[0]);
         pipe['pipebottom'].setPosition(pos[1]);
         this.pipeProperty.push(pipe);
 
+        //if(Math.random()<=0.1)
+            this.flowerLayer.getComponent('flower').spawnNewFlower(pos[1],pipe['verticalMoving'],pipe['verticalDownMoving']);
+      
         if(this.total % 30 == 0){
             GlobalGame.globalHorizontalVelocity -= 80;
             this.end.getComponent('end').setLevelUp();
-        } 
     },
 
     getNewPipePosition: function(){
