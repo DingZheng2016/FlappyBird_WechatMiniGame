@@ -311,7 +311,6 @@
       "__id__": 7
     },
     "finalX": -500,
-    "horizontalVelocity": -300,
     "verticalVelocity": 100,
     "flowerHeight": 100,
     "leafHeight": 60,
@@ -1015,9 +1014,7 @@
     "finalX": -500,
     "gravity": 100,
     "initialVerticalVelocity": 100,
-    "horizontalVelocity": -300,
-    "maxPipe": 6,
-    "pipeDis": 450,
+    "bubbleMaxTime": 8,
     "winkyTime": 0.1
   },
   {
@@ -1375,7 +1372,6 @@
       "__id__": 7
     },
     "finalX": -500,
-    "horizontalVelocity": -300,
     "verticalVelocity": 100,
     "flowerHeight": 100,
     "leafHeight": 60,
