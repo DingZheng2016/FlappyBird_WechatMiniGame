@@ -118,9 +118,11 @@ cc.Class({
                 console.log((- currentSpeed - dt * gravity) * dt)
                 self.player2.y += (- currentSpeed - dt * gravity) * dt;
                 */
+                self.offline = false;
                 self.player2.y = parseInt(dict['posy']);
                 self.player2.getComponent('player').jump();
             }else if(dict['type'] === 'score'){
+                self.offline = false;
                 self.score2.string = 'Score: ' + dict['score'];
             }else if(dict['type'] === 'die'){
                 self.player2.active = false;
@@ -145,6 +147,30 @@ cc.Class({
                 }
             }
         });
+    },
+
+    startDoubleGame: function() {
+        let self = this;
+        self.offline = false;
+        self.schedule(function() {
+            console.log(self.offline);
+            if(self.offline === true){
+                self.player2.active = false;
+                if(GlobalGame.isDoubleDead){
+                    GlobalGame.gameOn = false;
+                    self.endCanvas.active = true;
+                    self.scoreLabel.getComponent('score').passScore();
+                    self.scoreLabel.getComponent('score').setDoubleEnd(parseInt(self.score2.string.split(' ')[1]));
+                    self.close();
+                    self.scheduleOnce(function(){
+                        GlobalGame.access = 0;
+                        cc.director.loadScene('RankingView');
+                    }, 2);
+                }
+            }else{
+                self.offline = true;
+            }
+        }, 4);
     },
 
     sendSocketMessage: function(msg) {
@@ -224,7 +250,6 @@ cc.Class({
                 type: 'delay',
                 timestamp: (new Date()).valueOf(),
             });
-        }
-        
+        }  
     },
 });

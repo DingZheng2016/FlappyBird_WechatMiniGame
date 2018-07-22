@@ -33,6 +33,7 @@ cc.Class({
         if(GlobalGame.isDouble && CC_WECHATGAME){
             console.log('_getComponent');
             this.socket = this.socketlayer.getComponent('socket');
+            this.socket.startDoubleGame();
             console.log('getComponent_');
             GlobalGame.isDoubleDead = false;
         } else {
