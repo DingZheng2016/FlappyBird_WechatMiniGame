@@ -61,6 +61,8 @@ cc.Class({
         this.flowerMaxHeight = this.leafMaxHeight+0.5*(this.leafHeight+this.flowerHeight)-10;
         this.flowerMinHeight = this.leafMinHeight+0.5*(this.leafHeight+this.flowerHeight)-10;
         this.node.addChild(this.flower);
+        this.anim = this.flower.getComponent(cc.Animation);
+        this.anim.play('flower');
         this.flower.setPosition(cc.p(pos.x,pos.y + leafPosY + 0.5 * (this.leafHeight+this.flowerHeight)-10));
         //console.log('spanNewFlower:    '+ this.flower.y);
 
