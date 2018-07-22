@@ -85,7 +85,7 @@ cc.Class({
         this.flowerLayer.getComponent('flower').spawnNewFlower(pos[1], pipe['verticalMoving'], pipe['verticalDownMoving']);
 
         if (this.total % 30 == 0) {
-            GlobalGame.globalHorizontalVelocity -= 80;
+            GlobalGame.globalHorizontalVelocity -= parseInt(60 / (this.total / 30));
             this.end.getComponent('end').setLevelUp();
         }
     },

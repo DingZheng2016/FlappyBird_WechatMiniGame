@@ -86,8 +86,8 @@ cc.Class({
             if(GlobalGame.isDouble){
                 console.log('send die');
                 this.socketLayer.getComponent('socket').sendDie();
-                this.gravity = 0;
-                this.currentSpeed = 0;
+                //this.gravity = 0;
+                //this.currentSpeed = 0;
                 this.node.active = false;
             }else{
                 GlobalGame.gameOn = false;
@@ -115,19 +115,20 @@ cc.Class({
             this.bubbleLayer.getComponent('bubble').cancel();
         }
         else if(other.tag === 4 && this.isBubbled === false){
+            if(GlobalGame.isDouble){
+                GlobalGame.isDoubleDead = true;
+                this.socketLayer.getComponent('socket').sendDie();
+            }else{
+                GlobalGame.gameOn = false;
+                this.scoreLabel.getComponent('score').passScore();
+                this.scoreLabel.getComponent('score').setEndScore();
+                this.scheduleOnce(function(){
+                    GlobalGame.access = 1;
+                    cc.director.loadScene('RankingView');
+                }, 2);
+            }
             this.audioEat.play();
-            console.log('play');
-            GlobalGame.gameOn = false;
-            this.anim.stop('fly');
             this.node.active = false;
-            this.anim.stop('flower');
-            this.endCanvas.active = true;
-            this.scoreLabel.getComponent('score').passScore();
-            this.scoreLabel.getComponent('score').setEndScore();
-            this.scheduleOnce(function(){
-                GlobalGame.access = 1;
-                cc.director.loadScene('RankingView');
-            }, 2);
         }
     },
 

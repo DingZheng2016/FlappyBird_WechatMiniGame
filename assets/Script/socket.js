@@ -175,7 +175,7 @@ cc.Class({
             }else{
                 self.offline = true;
             }
-        }, 1);
+        }, 3);
     },
 
     sendSocketMessage: function(msg) {
@@ -221,6 +221,7 @@ cc.Class({
             type: 'request',
             nickName: nickName,
             avatarUrl: avatarUrl,
+            uuid: GlobalGame.uuid,
         });
     },
 

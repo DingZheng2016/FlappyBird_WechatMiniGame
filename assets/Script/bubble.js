@@ -58,6 +58,7 @@ cc.Class({
             this.bubbleAttached.destroy();
             this.bubbleAttached = null;
         }
+        console.log(this.bubble);
         this.bubbleAttached = this.bubble['bubble'];
         this.bubbleAttached.opacity = 255;
         //this.isGoingToDisappear = false;
@@ -108,7 +109,8 @@ cc.Class({
     },
 
     winkle: function() {
-        this.bubbleAttached.opacity = 255 - this.bubbleAttached.opacity;
+        if(this.bubbleAttached)
+            this.bubbleAttached.opacity = 255 - this.bubbleAttached.opacity;
     },
 
     over: function() {
