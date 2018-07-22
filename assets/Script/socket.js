@@ -147,6 +147,11 @@ cc.Class({
                 }
             }
         });
+
+        wx.onSocketClose(function(res) {
+            console.log('res');
+            console.log('WebSocket 已关闭！')
+        });
     },
 
     startDoubleGame: function() {
@@ -170,7 +175,7 @@ cc.Class({
             }else{
                 self.offline = true;
             }
-        }, 4);
+        }, 1);
     },
 
     sendSocketMessage: function(msg) {
