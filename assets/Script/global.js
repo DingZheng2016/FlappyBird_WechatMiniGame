@@ -11,4 +11,9 @@
 window.GlobalGame = {
     gameOn: true,
     access: 0, //0: main 1: over
+    isDouble: false,
+    uuid: '',
+    isDoubleDead: false,
+    globalHorizontalVelocity: 0,
+    delayTime: 30,
 };

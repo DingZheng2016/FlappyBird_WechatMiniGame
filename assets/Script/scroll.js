@@ -12,7 +12,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        speed: 0,
         border: 0,
         origin: 0,
     },
@@ -25,7 +24,7 @@ cc.Class({
         if(!GlobalGame.gameOn)
             return;
         let x = this.node.x;
-        x -= this.speed * dt;
+        x += GlobalGame.globalHorizontalVelocity * dt;
         if(x <= this.border)
             x = this.origin;
         this.node.x = x;

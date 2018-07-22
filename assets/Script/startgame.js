@@ -36,12 +36,18 @@ cc.Class({
 
     registerInput: function(){
         this.startGame.on(cc.Node.EventType.TOUCH_START, function(event){
+            GlobalGame.isDouble = false;
             cc.director.loadScene('game');
         }, this);
 
         this.ranking.on(cc.Node.EventType.TOUCH_START, function(event){
             GlobalGame.access = 0;
             cc.director.loadScene('RankingView');
+        }, this);
+
+        this.battle.on(cc.Node.EventType.TOUCH_START, function(){
+            GlobalGame.isDouble = true;
+            cc.director.loadScene('waiting');
         }, this);
     },
 

@@ -31,7 +31,6 @@ cc.Class({
         maxHeight: 0,
         minHeight: 0,
         finalX:0,
-        horizontalVelocity: 0,
         gravity: 0,
         initialVerticalVelocity: 0,
     },
@@ -68,7 +67,7 @@ cc.Class({
             this.velocity -= this.gravity * dt;
             if(this.velocity <= -this.initialVerticalVelocity)
                 this.velocity = this.initialVerticalVelocity;
-            this.star.x += this.horizontalVelocity * dt;
+            this.star.x += GlobalGame.globalHorizontalVelocity * dt;
             if(this.star.x <= this.finalX){
                 this.star.destroy();
                 this.star = null;

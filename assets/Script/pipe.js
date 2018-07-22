@@ -48,12 +48,15 @@ cc.Class({
             default: null,
             type: cc.AudioSource,
         },
+        end: {
+            default: null,
+            type: cc.Node,
+        },
         maxHeight: 0,
         minHeight: 0,
         verticalDis: 0,
         horizontalDis: 0,
         pipeHeight: 0,
-        pipeHorizontalVelocity: 0,
         initialX: 0,
         finalX: 0,
         scoreX: 0,
@@ -80,6 +83,10 @@ cc.Class({
 
         //if(Math.random()<=0.1)
             this.flowerLayer.getComponent('flower').spawnNewFlower(pos[1],pipe['verticalMoving'],pipe['verticalDownMoving']);
+      
+        if(this.total % 30 == 0){
+            GlobalGame.globalHorizontalVelocity -= 80;
+            this.end.getComponent('end').setLevelUp();
     },
 
     getNewPipePosition: function(){
@@ -92,7 +99,7 @@ cc.Class({
     getVerticalMoving: function(num){
         if(num <= 10)
             return false;
-        if(Math.random() < Math.min(num / 100 + 0.1, 0.8))
+        if(Math.random() < num % 30 / 50)
             return true;
     },
 
@@ -111,8 +118,8 @@ cc.Class({
             return;
 
         for(let i = 0; i < this.pipeProperty.length; ++i){
-            this.pipeProperty[i]['pipebottom'].x += this.pipeHorizontalVelocity * dt;
-            this.pipeProperty[i]['pipetop'].x += this.pipeHorizontalVelocity * dt;
+            this.pipeProperty[i]['pipebottom'].x += GlobalGame.globalHorizontalVelocity * dt;
+            this.pipeProperty[i]['pipetop'].x += GlobalGame.globalHorizontalVelocity * dt;
             if(this.pipeProperty[i]['verticalMoving']){
                 if(this.pipeProperty[i]['verticalDownMoving']){
                     this.pipeProperty[i]['pipebottom'].y -= this.pipeVerticalVelocity * dt;
@@ -129,7 +136,7 @@ cc.Class({
             }
         }
 
-        if(this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.scoreX && !this.pipeProperty[0]['scoreCounted']){
+        if((!GlobalGame.isDouble || (GlobalGame.isDouble && !GlobalGame.isDoubleDead)) && this.pipeProperty.length > 0 && this.pipeProperty[0]['pipetop'].x <= this.scoreX && !this.pipeProperty[0]['scoreCounted']){
             if(this.pipeProperty[0]['verticalMoving']){
                 this.audioScore2.play();
                 this.score.getComponent('score').scorePlus(2);
