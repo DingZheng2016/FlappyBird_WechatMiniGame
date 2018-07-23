@@ -105,6 +105,8 @@ cc.Class({
         }else if(other.tag === 0 && this.isBubbled === true){
             //this.isBubbled = false;
             this.bubbleLayer.getComponent('bubble').cancel();
+            if(GlobalGame.isDouble)
+                this.socketLayer.getComponent('socket').sendEndBubble();
         }else if(other.tag === 1){
             this.bubbleLayer.getComponent('bubble').dealWithCollision();
             this.isBubbled = true;
@@ -113,6 +115,8 @@ cc.Class({
         }else if(other.tag === 4 && this.isBubbled === true){
             //this.isBubbled = false;
             this.bubbleLayer.getComponent('bubble').cancel();
+            if(GlobalGame.isDouble)
+                this.socketLayer.getComponent('socket').sendEndBubble();
         }else if(other.tag === 4 && this.isBubbled === false){
             if(GlobalGame.isDouble){
                 GlobalGame.isDoubleDead = true;

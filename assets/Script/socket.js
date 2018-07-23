@@ -40,6 +40,10 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+        bubble: {
+            default: null,
+            type: cc.Node,
+        },
     },
 
     onLoad: function() {
@@ -145,6 +149,12 @@ cc.Class({
                 if(self.totalReceive === 12){
                     GlobalGame.delayTime = self.totalDelay / 2 / 12;
                 }
+            }else if(dict['type'] === 'startbubble'){
+                self.offline = false;
+                self.bubble.getComponent('bubble').startDoubleBubble();
+            }else if(dict['type'] === 'endbubble'){
+                self.offline = false;
+                self.bubble.getComponent('bubble').endDoubleBubble();
             }
         });
 
@@ -238,6 +248,20 @@ cc.Class({
             type: 'score',
             uuid: GlobalGame.uuid,
             score: score,
+        });
+    },
+
+    sendStartBubble: function(){
+        this.sendSocketMessage({
+            type: 'startbubble',
+            uuid: GlobalGame.uuid,
+        });
+    },
+
+    sendEndBubble: function() {
+        this.sendSocketMessage({
+            type: 'endbubble',
+            uuid: GlobalGame.uuid,
         });
     },
 

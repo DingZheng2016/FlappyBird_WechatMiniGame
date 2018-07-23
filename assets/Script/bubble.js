@@ -16,13 +16,25 @@ cc.Class({
             default: null,
             type: cc.Prefab,
         },
+        bubble2Prefab: {
+            default: null,
+            type: cc.Prefab,
+        },
         player: {
+            default: null,
+            type: cc.Node,
+        },
+        player2: {
             default: null,
             type: cc.Node,
         },
         audioBubble:{
             default: null,
             type: cc.AudioSource,
+        },
+        socketLayer:{
+            default: null,
+            type: cc.Node,
         },
         maxHeight: 0,
         minHeight: 0,
@@ -37,6 +49,8 @@ cc.Class({
         this.bubble = null;
         this.bubbleAttached = null;
         this.isGoingToDisappear = false;
+        this.doubleBubble = null;
+        this.isGoingToDisappearDouble = false;
 
         cc.director.getCollisionManager().enabled = true;
         //cc.director.getCollisionManager().enabledDebugDraw = true;
@@ -54,6 +68,9 @@ cc.Class({
 
     dealWithCollision: function() {
         this.audioBubble.play();
+        if(GlobalGame.isDouble){
+            this.socketLayer.getComponent('socket').sendStartBubble();
+        }
         if(this.bubbleAttached){
             this.bubbleAttached.destroy();
             this.bubbleAttached = null;
@@ -61,7 +78,7 @@ cc.Class({
         console.log(this.bubble);
         this.bubbleAttached = this.bubble['bubble'];
         this.bubbleAttached.opacity = 255;
-        //this.isGoingToDisappear = false;
+        this.isGoingToDisappear = false;
         this.bubble = null;
         this.unschedule(this.winkle);
         this.unschedule(this.cancel);
@@ -99,25 +116,75 @@ cc.Class({
             }
             */
         }
+
+        if(GlobalGame.isDouble && this.doubleBubble){
+            this.doubleBubble.x = this.player2.x;
+            this.doubleBubble.y = this.player2.y;
+        }
     },
 
     cancel: function() {
-        //this.isGoingToDisappear = true;
+        if(this.isGoingToDisappear)
+            return ;
+        this.isGoingToDisappear = true;
         //this.time = 0.1;
         this.schedule(this.winkle, this.winkyTime);
         this.scheduleOnce(this.over, 1);
     },
 
     winkle: function() {
-        if(this.bubbleAttached)
+        if(this.bubbleAttached && this.isGoingToDisappear)
             this.bubbleAttached.opacity = 255 - this.bubbleAttached.opacity;
     },
 
     over: function() {
+        if(!this.bubbleAttached)
+            return ;
+        this.isGoingToDisappear = false;
         this.unschedule(this.cancel);
         this.unschedule(this.winkle);
         this.bubbleAttached.destroy();
         this.bubbleAttached = null;
         this.player.getComponent('player').setBubbled(false);
+    },
+
+    startDoubleBubble: function() {
+        if(this.doubleBubble){
+            this.doubleBubble.destroy();
+            this.doubleBubble = null;
+        }
+        console.log('startDoubleBubble');
+        this.doubleBubble = cc.instantiate(this.bubble2Prefab);
+        this.node.addChild(this.doubleBubble);
+        console.log(this.player2.x + ' ' + this.player2.y);
+        this.doubleBubble.setPosition(cc.p(this.player2.x, this.player2.y));
+        this.doubleBubble.opacity = 120;
+        this.isGoingToDisappearDouble = false;
+        this.unschedule(this.endDoubleBubble);
+        this.unschedule(this.winkleDouble);
+        this.unschedule(this.overDouble);
+        this.scheduleOnce(this.endDoubleBubble, this.bubbleMaxTime);
+    },
+
+    endDoubleBubble: function() {
+        if(this.isGoingToDisappearDouble)
+            return ;
+        this.isGoingToDisappearDouble = true;
+        this.schedule(this.winkleDouble, this.winkyTime);
+        this.scheduleOnce(this.overDouble, 1);
+    },
+
+    winkleDouble: function() {
+        if(this.doubleBubble && this.isGoingToDisappearDouble)
+            this.doubleBubble.opacity = 120 - this.doubleBubble.opacity;
+    },
+
+    overDouble: function() {
+        if(!this.doubleBubble)
+            return ;
+        this.unschedule(this.endDoubleBubble);
+        this.unschedule(this.winkleDouble);
+        this.doubleBubble.destroy();
+        this.doubleBubble = null;
     },
 });
