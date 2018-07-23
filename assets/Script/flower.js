@@ -72,10 +72,6 @@ cc.Class({
         this.flowerPosY = leafPosY + 0.5 * (this.leafHeight+this.flowerHeight)-10;
     },
 
-    dealWithCollision: function() {
-
-    },
-
     update: function(dt){
         if(!GlobalGame.gameOn)
             return;
